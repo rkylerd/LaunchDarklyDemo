@@ -11,11 +11,11 @@ import { FormEvent, useEffect, useState } from 'react'
 import { Song } from '../types/song'
 
 type HomePageProps = {
-  flags: FlagSet
+  flags: FlagSet;
 };
 
 const search = async (searchTerm = "") =>
-  await axios.get(`${api}itunes/songs/${encodeURIComponent(searchTerm.replace(/\s/g, "+"))}`);
+  await axios.get(`api/itunes/songs/${encodeURIComponent(searchTerm.replace(/\s/g, "+"))}`);
 
 const HeadData = (
   <Head>
