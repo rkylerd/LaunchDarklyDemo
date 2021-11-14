@@ -5,25 +5,35 @@ import SoundPlayerContext from '../../contexts/soundPlayer';
 import { playSound } from '../../utils/sounds';
 import SongTile from './Tile';
 import SongCard from './Card';
-import { FlagSet, useFlagFunctions } from '../../hooks';
+import { useFlagFunctions } from '../../hooks';
+import { FeatureFlagContext } from '../../contexts/featureFlags';
 
 export type SongDisplayProps = {
     song: Song;
     setPlaying: (song: Song, soundData: HTMLDivElement & EventTarget) => void;
+    addToUpNextQueue: (song: Song) => void;
     isPlaying: boolean;
+    withOptions: boolean;
 };
 
 type SongListProps = {
     songs: Song[];
-    flags: FlagSet;
 };
 
-const SongList: FC<SongListProps> = ({ songs, flags }) => {
+const SongList: FC<SongListProps> = ({ songs }) => {
     const { soundData, setSoundData } = useContext(SoundPlayerContext);
-    const { song: { trackId: idOfPlaying = null } = {} } = soundData;
+    const { flags } = useContext(FeatureFlagContext);
+    const { isPlaying, song: { trackId: idOfPlaying = null } = {} } = soundData;
+
     const setPlaying = playSound(soundData, setSoundData);
+    const addToPlayNextQueue = (song: Song) =>
+        setSoundData(prev => ({
+            ...prev,
+            upNextQueue: [...prev.upNextQueue, song],
+        }));
 
     const { isFlagEnabled } = useFlagFunctions(flags);
+    const areSongOptionsShown = isFlagEnabled("songs-with-options");
     const isCardSongCompEnabled = isFlagEnabled("vertical-search-results");
     const SongElement = isCardSongCompEnabled ? SongCard : SongTile;
 
@@ -33,8 +43,10 @@ const SongList: FC<SongListProps> = ({ songs, flags }) => {
                 <SongElement
                     key={song.trackId}
                     song={song}
-                    isPlaying={song.trackId === idOfPlaying}
-                    setPlaying={setPlaying} />
+                    isPlaying={isPlaying && song.trackId === idOfPlaying}
+                    addToUpNextQueue={addToPlayNextQueue}
+                    setPlaying={setPlaying}
+                    withOptions={areSongOptionsShown} />
             ))}
         </FlexContainer>
     </Wrapper>

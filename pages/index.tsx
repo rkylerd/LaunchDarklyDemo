@@ -1,6 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
 import Head from 'next/head'
-import { api } from '../config'
 import { FlagSet } from '../hooks'
 import styles from '../styles/Home.module.css'
 import getFeatureFlags from '../utils/feature-flags'
@@ -9,6 +8,8 @@ import SongList from '../components/SongList'
 import { SoundPlayerProvider } from '../contexts/soundPlayer'
 import { FormEvent, useEffect, useState } from 'react'
 import { Song } from '../types/song'
+import GlobalSoundPlayer from '../components/GlobalPlayer'
+import { FeatureFlagProvider } from '../contexts/featureFlags'
 
 type HomePageProps = {
   flags: FlagSet;
@@ -32,7 +33,7 @@ const Home: NextPage<HomePageProps> = ({ flags }) => {
 
   useEffect(() => {
     const url = new URL(window.location.toString());
-    const query = url.searchParams.get("q");
+    const query = url.searchParams.get("q") || "john mayer";
     if (query) {
       (async () => await updateSearchResults(null, query))();
       setSearchTerm(query);
@@ -44,6 +45,7 @@ const Home: NextPage<HomePageProps> = ({ flags }) => {
     const query = searchTerm || overrideSearchTerm;
     if (!query) return;
     setLoading(true);
+
     try {
       const url = new URL(window.location.toString());
       url.searchParams.set("q", query);
@@ -63,17 +65,20 @@ const Home: NextPage<HomePageProps> = ({ flags }) => {
     <div className={styles.container}>
       {HeadData}
 
-      <h1>{searchTerm.replace(/\b[a-z]/gi, (match) => match.toUpperCase())} Search Results</h1>
+      <h1>Search Results</h1>
       <form onSubmit={updateSearchResults}>
         <input value={searchTerm} onChange={({ currentTarget: { value } }) => setSearchTerm(value)} />
         <button type="submit">Search</button>
       </form>
 
-      <SoundPlayerProvider>
-        {loading ? <h4>loading...</h4> :
-          <SongList songs={searchResults} flags={flags} />
-        }
-      </SoundPlayerProvider>
+      <FeatureFlagProvider flags={flags}>
+        <SoundPlayerProvider>
+          <GlobalSoundPlayer />
+          {loading ? <h4>loading...</h4> :
+            <SongList songs={searchResults} />
+          }
+        </SoundPlayerProvider>
+      </FeatureFlagProvider>
 
     </div>
   )

@@ -41,10 +41,9 @@ export const AlbumArtwork = styled.div<{ artwork: string; isPlaying: boolean; is
 export const SongInfo = styled.div`
     display: flex;
     flex-direction: row;
-    padding-left: 3px;
     text-align: left;
     justify-content: space-between;
-
+    width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -52,6 +51,7 @@ export const SongInfo = styled.div`
 
 export const NameAndArtist = styled.div`
     min-width: 122px;
+    padding-left: 3px;
     display: flex;
     flex-direction: column;
     span {
@@ -67,6 +67,9 @@ export const ExplicitContainer = styled.span`
     font-size: xx-small;
     color: red;
     border: 1px solid red;
+    display: block;
+    text-align: center;
+    width: 10px;
 `;
 
 export const FlexContainer = styled.div<{ withColumns?: boolean; }>`
@@ -81,7 +84,6 @@ export const Wrapper = styled.div`
     display: flex;
     margin: unset auto;
     flex-direction: row;
-    overflow-x: auto;
     height: 505px;
 `;
 
