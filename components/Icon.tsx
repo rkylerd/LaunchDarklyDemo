@@ -55,7 +55,7 @@ const StyledIcon = styled(FontAwesomeIcon) <IconStyleProps>`
 export const Icon: FC<props> = ({ icon, color = 'white', keyDownData, tabindex = -1, hcolor = undefined, size = '2x', onClick = (() => null), spin = false, ...rest }) => {
 
     const keyboardHandler: KeyboardEventHandler<SVGSVGElement> =
-        (e) => (tabindex > -1) && watchButtonPress(e, keyDownData || {});
+        (e) => (tabindex > -1) && watchButtonPress(keyDownData || {})(e);
 
     return <StyledIcon tabIndex={tabindex}
         onKeyPress={keyboardHandler}

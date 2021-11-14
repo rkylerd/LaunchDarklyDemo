@@ -39,9 +39,11 @@ const GlobalSoundPlayer: FC = (): JSX.Element | null => {
                     <Icon icon={isHidden ? faCaretLeft : faCaretRight} onClick={() => setIsPlayerHidden(!isHidden)} />
                 </div >
                 <FlexContainer>
-                    <Options OptionsDisplayElement={
-                        <img src={soundData.song?.artworkUrl30 || ""} alt="Album artwork of song that's playing" style={{ margin: "auto" }} />
-                    }>
+                    <Options
+                        insideStaticContainer={true}
+                        OptionsDisplayElement={
+                            <img src={soundData.song?.artworkUrl30 || ""} alt="Album artwork of song that's playing" style={{ margin: "auto" }} />
+                        }>
                         {[soundData.song, ...soundData.upNextQueue].map(({ trackName }: Song, idx) => <li key={trackName + idx}>
                             {trackName}
                         </li>)}
