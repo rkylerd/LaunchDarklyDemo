@@ -64,6 +64,7 @@ export const playSound = (soundData: SoundData, setSoundData: Dispatch<SetStateA
         });
 
         // update the global player's song progress indicator
+        // @ts-ignore - I have no idea what the right type is for this thing
         audioPlayer.addEventListener('timeupdate', ({ currentTarget: { currentTime = 0 } } = {}) => {
             setSoundData(prev => {
                 const currentTimeOfSong = Math.floor(currentTime);
