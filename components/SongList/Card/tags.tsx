@@ -3,6 +3,7 @@ import { AlbumArtwork as GenericAlbumArtwork, NameAndArtist as GenericNameAndArt
 
 export const AlbumArtwork = styled(GenericAlbumArtwork)`
     margin: 0 auto;
+    box-shadow: black 0 1px 3px;
 `;
 
 export const NameAndArtist = styled(GenericNameAndArtist)`
