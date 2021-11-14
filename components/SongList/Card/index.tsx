@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
-import { Card, ExplicitContainer, NameAndArtist, PlayingIndicator } from '../tags';
-import { AlbumArtwork } from './tags';
+import { Card, ExplicitContainer, PlayingIndicator } from '../tags';
+import { AlbumArtwork, NameAndArtist } from './tags';
 import { SongDisplayProps } from '..';
 import Options from '../../Options';
 

@@ -67,8 +67,8 @@ const Home: NextPage<HomePageProps> = ({ flags }) => {
 
       <h1>Search Results</h1>
       <form onSubmit={updateSearchResults}>
-        <input type="search" value={searchTerm} onChange={({ currentTarget: { value } }) => setSearchTerm(value)} />
-        <button type="submit">Search</button>
+        <input tabIndex={1} type="search" value={searchTerm} onChange={({ currentTarget: { value } }) => setSearchTerm(value)} />
+        <button tabIndex={1} type="submit">Search</button>
       </form>
 
       <FeatureFlagProvider flags={flags}>
