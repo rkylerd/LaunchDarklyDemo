@@ -42,7 +42,7 @@ const GlobalSoundPlayer: FC = (): JSX.Element | null => {
                     <Options
                         insideStaticContainer={true}
                         OptionsDisplayElement={
-                            <img src={soundData.song?.artworkUrl30 || ""} alt="Album artwork of song that's playing" style={{ margin: "auto" }} />
+                            <img src={soundData.song?.artworkUrl30 || ""} alt="Album artwork of song that's playing" style={{ margin: "auto", boxShadow: "black 0px 1px 3px" }} />
                         }>
                         {[soundData.song, ...soundData.upNextQueue].map(({ trackName }: Song, idx) => <li key={trackName + idx}>
                             {trackName}
