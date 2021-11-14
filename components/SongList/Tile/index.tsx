@@ -27,7 +27,7 @@ const SongTile: FC<SongDisplayProps> = ({ song, setPlaying, isPlaying, addToUpNe
 
                 <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                     {withOptions && <Options style={{ margin: '2px auto' }}>
-                        <li onClick={() => addToUpNextQueue(song)}>Add to Queue</li>
+                        <li onClick={() => addToUpNextQueue(song)}>Add to Up Next</li>
                         <li onClick={() => window.alert("Psych! Can't believe you thought that would work.")}>Download (free)</li>
                     </Options>}
                     <span style={{ margin: 'auto' }}>
