@@ -1,10 +1,12 @@
-import { faBackward, faCaretLeft, faCaretRight, faForward, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faBackward, faCaretLeft, faCaretRight, faForward, faList, faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { ChangeEventHandler, FC, useContext, useState } from 'react'
 import { FeatureFlagContext } from '../../contexts/featureFlags';
 import SoundPlayerContext from '../../contexts/soundPlayer';
 import { useFlagFunctions } from '../../hooks';
+import { Song } from '../../types/song';
 import { millisToMinutesAndSeconds, playSound } from '../../utils/sounds';
 import Icon from '../Icon';
+import Options from '../Options';
 import { FlexContainer, MusicPlayer, MusicPlayerWrapper } from './tags';
 
 const GlobalSoundPlayer: FC = (): JSX.Element | null => {
@@ -36,6 +38,15 @@ const GlobalSoundPlayer: FC = (): JSX.Element | null => {
                 <div id="caret">
                     <Icon icon={isHidden ? faCaretLeft : faCaretRight} onClick={() => setIsPlayerHidden(!isHidden)} />
                 </div >
+                <FlexContainer>
+                    <Options OptionsDisplayElement={
+                        <img src={soundData.song?.artworkUrl30 || ""} alt="Album artwork of song that's playing" style={{ margin: "auto" }} />
+                    }>
+                        {[soundData.song, ...soundData.upNextQueue].map(({ trackName }: Song, idx) => <li key={trackName + idx}>
+                            {trackName}
+                        </li>)}
+                    </Options>
+                </FlexContainer>
                 <FlexContainer id="buttons">
                     <div>
                         {/* @ts-ignore - the destructuring and default value of '0' gets around the type mismatch */}

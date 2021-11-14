@@ -14,6 +14,10 @@ const SongCard: FC<SongDisplayProps> = ({ song, setPlaying, isPlaying, addToUpNe
                 <AlbumArtwork
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
+                    onBlur={() => setHovered(false)}
+                    onFocus={() => setHovered(true)}
+                    tabIndex={1}
+                    onKeyPress={(e) => e.currentTarget.click()}
                     isPlaying={isPlaying}
                     isHovered={isHovered}
                     artwork={artworkUrl60}
@@ -23,8 +27,8 @@ const SongCard: FC<SongDisplayProps> = ({ song, setPlaying, isPlaying, addToUpNe
 
                 <div style={{ width: '100%' }}>
                     {withOptions && <Options style={{ marginLeft: 'auto' }}>
-                        <li onClick={() => addToUpNextQueue(song)}>Add to Up Next</li>
-                        <li onClick={() => window.alert("Psych! Can't believe you thought that would work.")}>Download (free)</li>
+                        <li tabIndex={1} onKeyPress={(e) => e.currentTarget.click()} onClick={() => addToUpNextQueue(song)}>Add to Up Next</li>
+                        <li tabIndex={1} onKeyPress={(e) => e.currentTarget.click()} onClick={() => window.alert("Psych! Can't believe you thought that would work.")}>Download (free)</li>
                     </Options>}
                     <span style={{ margin: 'auto', textAlign: 'center' }}>
                         {trackExplicitness === 'explicit' && <ExplicitContainer>E</ExplicitContainer>}

@@ -8,7 +8,7 @@ export type KeyDownData = {
 };
 
 const defaultKeyCodes = ["Enter", " "];
-export const watchButtonPress = (e: KeyboardEvent, { keyCodes = defaultKeyCodes, cb = () => { }, params = [] }: KeyDownData) => {
+export const watchButtonPress = ({ keyCodes = defaultKeyCodes, cb = () => { }, params = [] }: KeyDownData) => (e: KeyboardEvent) => {
 
     if (keyCodes.includes(e.key)) {
         cb(...params)

@@ -21,7 +21,6 @@ export const OptionsIcon = styled(Icon)`
 export const OptionsWrapper = styled.div<Styles>`
     display: flex;
     border-radius: 50%;
-    padding: 5px;
     width: 30px;
     height: 30px;
     text-align: center;

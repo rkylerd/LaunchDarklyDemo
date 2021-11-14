@@ -7,7 +7,6 @@ export const MusicPlayerWrapper = styled.div<{ hidden?: boolean; }>`
     position: fixed;
     right: 0;
     top: 0;
-    overflow-x: hidden;
     z-index: 10;
     transition: width .3s;
     @media (max-width: ${desktopWidth}) {
